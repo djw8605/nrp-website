@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sidebar-shadow
+{
+  box-shadow: -3px 0 3px 0px #888;
+  z-index: 1;
+}
