@@ -1,10 +1,12 @@
-import Map, { Marker, Layer, NavigationControl } from 'react-map-gl';
+import Map, { Marker, Layer, NavigationControl, Source } from 'react-map-gl';
 import sites from '../data/sites.json';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateSite } from '../src/selectedSite';
 import InsideMarker from './inside-marker';
-import BackControl from './back-control';
+import MapControls from './map-controls';
+import { point, featureCollection } from '@turf/helpers';
+import circle from '@turf/circle'
 
 
 const buildingLayer = {
@@ -59,9 +61,35 @@ export default function NRPMap() {
   });
   const dispatch = useDispatch();
   const [count, setCount] = useState(0);
+  const [showRanges, setShowRanges] = useState(false);
 
   useEffect(() => {
   });
+
+
+  var circles = new Array();
+  Object.keys(sites.sites).map((site, i) => {
+    let _center = point([sites.sites[site].lon, sites.sites[site].lat]);
+    let _radius = 500;
+    let _options = {
+      steps: 80,
+      units: 'miles' // or "mile"
+    };
+    let _circle = circle(_center, _radius, _options);
+    circles.push(_circle);
+  });
+
+  var collection = featureCollection(circles);
+
+  var circleLayerStyle = {
+    'id': 'circleLayer',
+    'type': 'fill',
+    paint: {
+      "fill-color": "blue",
+      "fill-opacity": 0.2,
+      "fill-outline-color": "blue",
+    },
+  }
 
   return (
     <>
@@ -97,9 +125,16 @@ export default function NRPMap() {
           </Marker>
         ))}
         <Layer {...buildingLayer} />
+        {showRanges &&
+          <Source id="cache-circles" type="geojson" data={collection}>
+            <Layer {...circleLayerStyle} />
+          </Source>
+        }
         <NavigationControl visualizePitch="true" />
-        <BackControl
+        <MapControls
           position="top-left"
+          mapRef={mapRef}
+          initialView={initialViewState}
           onClick={() => {
             console.log("Clicked back button");
             mapRef.current?.flyTo({
@@ -109,6 +144,12 @@ export default function NRPMap() {
               pitch: initialViewState.pitch,
               bearing: initialViewState.bearing
             });
+            dispatch(updateSite(null));
+          }}
+          enableCacheRange={(e) => {
+            console.log("Checked = ", e.target.checked);
+            console.log(e);
+            setShowRanges(e.target.checked);
           }}
         />
       </Map>

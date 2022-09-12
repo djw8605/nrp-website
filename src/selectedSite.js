@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  value: "San Diego Supercomputing Center",
+  value: null,
 }
 
 export const selectedSiteSlice = createSlice({
