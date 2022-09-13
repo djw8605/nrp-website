@@ -57,6 +57,16 @@ export default function NRPMap() {
   const mapRef = useRef();
   const selectedSite = useSelector((state) => {
     console.log("State change: ", state);
+    let site = state.selectedSite.value;
+    if (site) {
+      mapRef.current?.flyTo({
+        center: [sites.sites[site].lon, sites.sites[site].lat],
+        zoom: 16,
+        duration: 2000,
+        pitch: 40,
+        bearing: 0
+      });
+    }
     return state.selectedSite.value
   });
   const dispatch = useDispatch();
