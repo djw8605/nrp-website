@@ -19,7 +19,7 @@ export default function Sidebar() {
     return Object.keys(sites.sites).map((site) => {
       return (
         <div key={site} className="m-2 flex flex-row items-center rounded-md border-2 border-slate-300 p-2 justify-between cursor-pointer hover:border-blue-500 active:ring active:border-blue-700"
-          onClick={() => {dispatch(updateSite(site))}}>
+          onClick={() => { dispatch(updateSite(site)) }}>
           <div className="mr-4 flex flex-row items-center">
             <div>
               {/* <!-- Add icon here --> */}
@@ -28,7 +28,7 @@ export default function Sidebar() {
               <div className="text-xl font-bold">{sites.sites[site].shortname}</div>
               <div className="text-sm text-gray-600">{sites.sites[site].name}</div>
             </div>
-            
+
           </div>
           <div className="mr-4">
             <FontAwesomeIcon icon={faChevronRight} />
@@ -84,12 +84,19 @@ export default function Sidebar() {
               </div>
             </div>
           </div>
-          <div className="py-2 px-2 h-full border-t-2 mt-4">
+          <div className="py-2 px-2 border-t-2 mt-4">
             <p className=''>
               {selectedSite && sites.sites[selectedSite] && sites.sites[selectedSite].summary}
             </p>
             {!selectedSite && siteLinks}
           </div>
+          {selectedSite &&
+            <div className='p-2 flex'>
+              <div className='rounded-lg bg-green-600 text-white p-2 text-sm'>
+                <span className='font-bold'>Cache:</span> {sites.sites[selectedSite].cache}
+              </div>
+            </div>
+          }
         </div>
 
       </div>
