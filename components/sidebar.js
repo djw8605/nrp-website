@@ -13,7 +13,7 @@ export default function Sidebar() {
   console.log(sites.sites[selectedSite]);
   const dispatch = useDispatch();
 
-  const website = selectedSite ? sites.sites[selectedSite].website : "https://nationalresearchplatform.org";
+  const website = selectedSite ? sites.sites[selectedSite].website : "http://nationalresearchplatform.org";
 
   const siteLinks = useMemo(() => {
     return Object.keys(sites.sites).map((site) => {
