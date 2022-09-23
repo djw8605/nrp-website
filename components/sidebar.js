@@ -4,7 +4,9 @@ import sites from '../data/sites.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faGlobe, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { useMemo } from 'react';
+import useSWR from 'swr';
 
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 
 export default function Sidebar() {
@@ -12,7 +14,9 @@ export default function Sidebar() {
   console.log("Sidebar:", selectedSite);
   console.log(sites.sites[selectedSite]);
   const dispatch = useDispatch();
-
+  const { data: nodesInfo, error } = useSWR(() => '/api/nodesInfo?nodeRegex=' + sites.sites[selectedSite].nodeRegex, fetcher, { refreshInterval: 300000 });
+  console.log("Nodes info: ", nodesInfo);
+  console.log("Nodes error: ", error);
   const website = selectedSite ? sites.sites[selectedSite].website : "http://nationalresearchplatform.org";
 
   const siteLinks = useMemo(() => {
@@ -45,7 +49,7 @@ export default function Sidebar() {
           <img src="/images/NRP_LOGO-cropped.svg" />
         </div>
 
-        <div className="h-full">
+        <div className="overflow-auto">
 
           {selectedSite && sites.sites[selectedSite] &&
             <img className='shadow-inner' src={sites.sites[selectedSite].image} />}
@@ -90,13 +94,6 @@ export default function Sidebar() {
             </p>
             {!selectedSite && siteLinks}
           </div>
-          {selectedSite &&
-            <div className='p-2 flex'>
-              <div className='rounded-lg bg-green-600 text-white p-2 text-sm'>
-                <span className='font-bold'>Cache:</span> {sites.sites[selectedSite].cache}
-              </div>
-            </div>
-          }
         </div>
 
       </div>

@@ -17,7 +17,8 @@ export default async function handler(req, res) {
     }
     //console.log("Cache:", cache);
     //const query = `sum(irate(cache_read_bytes_total{cache="${cache}"}[5m])) / sum(irate(cache_write_bytes_total{cache="${cache}"}[5m]))`;
-    const query = `instance:node_network_transmit_bytes:rate:sum{instance="${cache}"}`
+    const query = `sum(instance:node_network_transmit_bytes:rate:sum{instance=~"${cache}"})`
+    console.log("Query:", query);
     var transmitResult = null;
     try {
         var transmitResult = await prom.instantQuery(query);
@@ -26,16 +27,17 @@ export default async function handler(req, res) {
         res.status(500).json({ error: e });
         return;
     }
-    const receiveQuery = `instance:node_network_receive_bytes:rate:sum{instance="${cache}"}`
+    const receiveQuery = `sum(instance:node_network_receive_bytes:rate:sum{instance=~"${cache}"})`
+    console.log("Query:", receiveQuery);
     var receiveResult = null;
     try {
-    var receiveResult = await prom.instantQuery(receiveQuery);
+        var receiveResult = await prom.instantQuery(receiveQuery);
     } catch (e) {
         console.log("Error:", e);
         res.status(500).json({ error: e });
         return;
     }
-    
+
 
     //console.log("Transmit result:", transmitResult);
     if (transmitResult.result.length == 0 || receiveResult.result.length == 0) {

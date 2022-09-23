@@ -40,7 +40,7 @@ function humanTransferSpeed(bytes, si = false, dp = 1) {
 
 export default function InsideMarker(props) {
 
-  const url = "/api/cacheUtilization?cache=" + props.site.cache;
+  const url = "/api/cacheUtilization?cache=" + props.site.nodeRegex;
   const { data, error } = useSWR(url, fetcher, { refreshInterval: 300000 });
   const [expanded, setExpanded] = useState(false);
 

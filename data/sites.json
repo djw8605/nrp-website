@@ -7,7 +7,7 @@
       "lon": -96.70554062901587,
       "image": "/images/HCC_building.jpeg",
       "summary": "The Holland Computing Center at the University of Nebraska - Lincoln hosts GPU-enabled servers as well as storage and caching services.",
-      "cache": "osg.kans.nrp.internet2.edu",
+      "nodeRegex": ".*.unl.edu",
       "website": "https://hcc.unl.edu/",
       "num_gpus": 144,
       "num_cpus": 1152
@@ -21,7 +21,7 @@
       "logo": "/images/SDSClogo.png",
       "summary": "The San Diego Supercomputing Center hosts composible GPU-enabled servers, FPGAs, as well as storage and caching services.",
       "website": "https://www.sdsc.edu/",
-      "cache": "stashcache.t2.ucsd.edu",
+      "nodeRegex": ".*.ucsd.edu",
       "num_cpus": "1152",
       "num_gpus": "144"
     },
@@ -33,7 +33,7 @@
       "image": "/images/MGHPCC_building.jpeg",
       "summary": "The Massachusetts Green High Performance Computing Center hosts GPU-enabled servers as well as storage and caching services.",
       "website": "https://www.mghpcc.org/",
-      "cache": "osg.newy32aoa.nrp.internet2.edu",
+      "nodeRegex": "osg.newy32aoa.nrp.internet2.edu",
       "num_gpus": 144,
       "num_cpus": 1152
     }

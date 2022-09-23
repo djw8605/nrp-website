@@ -45,6 +45,7 @@ const buildingLayer = {
 };
 
 const initialViewState = {
+  center: [-96.70554062901587, 40.819759045397525],
   longitude: -96.70554062901587,
   latitude: 40.819759045397525,
   zoom: 3,
@@ -55,27 +56,29 @@ const initialViewState = {
 
 export default function NRPMap() {
   const mapRef = useRef();
-  const selectedSite = useSelector((state) => {
-    console.log("State change: ", state);
-    let site = state.selectedSite.value;
-    if (site) {
-      mapRef.current?.flyTo({
-        center: [sites.sites[site].lon, sites.sites[site].lat],
+  const [viewState, setViewState] = useState(initialViewState);
+  const selectedSite = useSelector((state) => state.selectedSite.value);
+
+  useEffect(() => {
+    if (selectedSite && viewState.center != [sites.sites[selectedSite].lon, sites.sites[selectedSite].lat]) {
+      setViewState({
+        center: [sites.sites[selectedSite].lon, sites.sites[selectedSite].lat],
         zoom: 16,
         duration: 2000,
         pitch: 40,
         bearing: 0
       });
     }
-    return state.selectedSite.value
-  });
+  }, [selectedSite]);
+
   const dispatch = useDispatch();
   const [count, setCount] = useState(0);
   const [showRanges, setShowRanges] = useState(false);
 
   useEffect(() => {
-  });
-
+    console.log("In use effect", viewState);
+    mapRef.current?.flyTo(viewState);
+  }, [viewState]);
 
   var circles = new Array();
   Object.keys(sites.sites).map((site, i) => {
@@ -119,14 +122,14 @@ export default function NRPMap() {
             anchor="center"
             onClick={(e) => {
               console.log("Selected site: " + site);
-              dispatch(updateSite(site));
-              mapRef.current?.flyTo({
+              setViewState({
                 center: [sites.sites[site].lon, sites.sites[site].lat],
                 zoom: 16,
                 duration: 2000,
                 pitch: 40,
                 bearing: 0
               })
+              dispatch(updateSite(site));
               e.originalEvent.stopPropagation();
             }}
           >
@@ -147,12 +150,9 @@ export default function NRPMap() {
           initialView={initialViewState}
           onClick={() => {
             console.log("Clicked back button");
-            mapRef.current?.flyTo({
-              center: [initialViewState.longitude, initialViewState.latitude],
-              zoom: initialViewState.zoom,
+            setViewState({
               duration: 2000,
-              pitch: initialViewState.pitch,
-              bearing: initialViewState.bearing
+              ...initialViewState
             });
             dispatch(updateSite(null));
           }}

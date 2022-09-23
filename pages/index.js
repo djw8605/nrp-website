@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import BottomPanel from '../components/bottom-panel'
+import GrowingSplit from '../components/growing-split'
 import NRPMap from '../components/nrp-map'
 import Sidebar from '../components/sidebar'
 
@@ -11,9 +13,8 @@ export default function Home() {
       </Head>
 
       <div className="grid grid-cols-4">
-        <div className="col-span-3 h-screen">
-          {/* This is where the map will go */}
-          <NRPMap />
+        <div className='col-span-3'>
+          <GrowingSplit top={<NRPMap />} bottom={<BottomPanel />} />
         </div>
 
         <div className="col-span-1 h-screen sidebar-shadow">
@@ -24,6 +25,6 @@ export default function Home() {
       </div>
 
     </div>
-    
+
   )
 }
