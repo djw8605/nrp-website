@@ -21,6 +21,9 @@ export default function Sidebar() {
 
   const siteLinks = useMemo(() => {
     return Object.keys(sites.sites).map((site) => {
+      if (sites.sites[site].cache) {
+        return;
+      }
       return (
         <div key={site} className="m-2 flex flex-row items-center rounded-md border-2 border-slate-300 p-2 justify-between cursor-pointer hover:border-blue-500 active:ring active:border-blue-700"
           onClick={() => { dispatch(updateSite(site)) }}>

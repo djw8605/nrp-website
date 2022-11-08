@@ -48,7 +48,7 @@ const initialViewState = {
   center: [-96.70554062901587, 40.819759045397525],
   longitude: -96.70554062901587,
   latitude: 40.819759045397525,
-  zoom: 3,
+  zoom: 3.5,
   pitch: 0,
   bearing: 0,
   projection: 'globe'
@@ -109,6 +109,8 @@ export default function NRPMap() {
       <Map
         ref={mapRef}
         initialViewState={initialViewState}
+        //mapStyle="mapbox://styles/mapbox/satellite-v9"
+        //mapStyle="mapbox://styles/mapbox/dark-v10"
         mapStyle="mapbox://styles/mapbox/light-v10"
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
         attributionControl={false}
@@ -121,6 +123,9 @@ export default function NRPMap() {
             latitude={sites.sites[site].lat}
             anchor="center"
             onClick={(e) => {
+              if (sites.sites[site].cache) {
+                return;
+              }
               console.log("Selected site: " + site);
               setViewState({
                 center: [sites.sites[site].lon, sites.sites[site].lat],

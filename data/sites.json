@@ -10,7 +10,8 @@
       "nodeRegex": ".*.unl.edu",
       "website": "https://hcc.unl.edu/",
       "num_gpus": 144,
-      "num_cpus": 1152
+      "num_cpus": 1152,
+      "cache": false
     },
     "San Diego Supercomputing Center": {
       "name": "San Diego Supercomputing Center",
@@ -23,7 +24,8 @@
       "website": "https://www.sdsc.edu/",
       "nodeRegex": ".*.ucsd.edu",
       "num_cpus": "1152",
-      "num_gpus": "144"
+      "num_gpus": "144",
+      "cache": false
     },
     "Massachusetts Green High Performance Computing Center": {
       "name": "Massachusetts Green High Performance Computing Center",
@@ -35,7 +37,43 @@
       "website": "https://www.mghpcc.org/",
       "nodeRegex": ".*.mghpcc.org",
       "num_gpus": 144,
-      "num_cpus": 1152
+      "num_cpus": 1152,
+      "cache": false
+    },
+    "Houston": {
+      "nodeRegex": "dtn-pas.hous.net.internet2.edu",
+      "shortname" : "Houston",
+      "lat": 29.94165768191986,
+      "lon": -95.41727340245478,
+      "cache": true
+    },
+    "Boise": {
+      "nodeRegex": "dtn-pas.bois.net.internet2.edu",
+      "shortname" : "Boise",
+      "lat": 43.61395595635893,
+      "lon": -116.2109147732502,
+      "cache": true
+    },
+    "Jacksonville": {
+      "nodeRegex": "dtn-pas.jack.net.internet2.edu",
+      "shortname" : "Jacksonville",
+      "lat": 30.258798422958332,
+      "lon": -81.61064658895273,
+      "cache": true
+    },
+    "Cincinati": {
+      "nodeRegex": "dtn-pas.cinc.net.internet2.edu",
+      "shortname" : "Cincinati",
+      "lat": 39.10265574339461,
+      "lon": -84.50300540222005,
+      "cache": true
+    },
+    "Denver": {
+      "nodeRegex": "dtn-pas.denv.net.internet2.edu",
+      "shortname" : "Denver",
+      "lat": 39.752745417593765,
+      "lon": -105.00797407452336,
+      "cache": true
     }
   }
 }
