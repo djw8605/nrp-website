@@ -1,5 +1,6 @@
 import { useControl } from "react-map-gl"
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
+import { createRoot } from 'react-dom/client'
 
 
 class HelloWorldControl {
@@ -30,11 +31,13 @@ class HelloWorldControl {
         </div>
       </div>
     )
-    ReactDOM.render(fragment, this._container);
+    this._root = createRoot(this._container);
+    this._root.render(fragment);
     return this._container;
   }
 
   onRemove() {
+    this._root.unmount();
     this._container.parentNode.removeChild(this._container);
     this._map = undefined;
   }
