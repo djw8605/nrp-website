@@ -51,7 +51,7 @@ const initialViewState = {
   zoom: 3.5,
   pitch: 0,
   bearing: 0,
-  projection: 'globe'
+  //projection: 'globe'
 };
 
 export default function NRPMap() {
