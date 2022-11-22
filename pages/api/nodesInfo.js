@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     var transmitQuery = `instance:node_network_transmit_bytes:rate:sum{instance=~"${nodeRegex}"}`
     var receiveQuery = `instance:node_network_receive_bytes:rate:sum{instance=~"${nodeRegex}"}`
     var podQuery = `sum by (node) (kube_pod_info{node=~"${nodeRegex}"})`
-    var gpuUtiluzationQuery = `avg by (node) (nvml_gpu_percent * on (namespace, pod) group_left(node) node_namespace_pod:kube_pod_info:{node=~"${nodeRegex}"})`
+    var gpuUtiluzationQuery = `avg by (node) (DCGM_FI_DEV_GPU_UTIL * on (namespace, pod) group_left(node) node_namespace_pod:kube_pod_info:{node=~"${nodeRegex}"})`
     var results = await Promise.all([
         prom.instantQuery(transmitQuery),
         prom.instantQuery(receiveQuery),
