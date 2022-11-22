@@ -19,10 +19,12 @@ export default async function handler(req, res) {
     var transmitQuery = `instance:node_network_transmit_bytes:rate:sum{instance=~"${nodeRegex}"}`
     var receiveQuery = `instance:node_network_receive_bytes:rate:sum{instance=~"${nodeRegex}"}`
     var podQuery = `sum by (node) (kube_pod_info{node=~"${nodeRegex}"})`
+    var gpuUtiluzationQuery = `avg by (node) (nvml_gpu_percent * on (namespace, pod) group_left(node) node_namespace_pod:kube_pod_info:{node=~"${nodeRegex}"})`
     var results = await Promise.all([
         prom.instantQuery(transmitQuery),
         prom.instantQuery(receiveQuery),
-        prom.instantQuery(podQuery)
+        prom.instantQuery(podQuery),
+        prom.instantQuery(gpuUtiluzationQuery)
     ]);
     /*
     if (err) {
@@ -66,6 +68,20 @@ export default async function handler(req, res) {
             };
         }
     }
+
+    // Loop through the gpu utilization results
+    for (var i = 0; i < results[3].result.length; i++) {
+        console.log("GPU result:", results[3].result[i]);
+        var instance = results[3].result[i].metric.labels.node;
+        if (toReturn[instance]) {
+            toReturn[instance].gpuUtilization = results[3].result[i].value.value;
+        } else {
+            toReturn[instance] = {
+                gpuUtilization: results[3].result[i].value.value
+            };
+        }
+    }
+
     res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate')
     res.setHeader('Content-Type', 'application/json');
     console.log("Results:", toReturn);

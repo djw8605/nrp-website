@@ -43,7 +43,7 @@ export default function InsideMarker(props) {
   const url = "/api/cacheUtilization?cache=" + props.site.nodeRegex;
 
   // Update every 60 seconds
-  const { data, error } = useSWR(url, fetcher, { refreshInterval: 60*1000 });
+  const { data, error } = useSWR(url, fetcher, { refreshInterval: 60 * 1000 });
   if (error) {
     console.log("Error: ", error);
   }

@@ -69,6 +69,13 @@ export default function BottomPanel() {
       selector: row => row.pods,
       sortable: true,
     },
+    {
+      name: 'GPU Utilization',
+      format: row => row.gpuUtilization != undefined ? row.gpuUtilization.toFixed(1) + "%" : "N/A",
+      selector: row => row.gpuUtilization,
+      sortable: true,
+
+    },
   ];
 
   var data = [];
