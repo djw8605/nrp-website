@@ -71,7 +71,7 @@ export default function BottomPanel() {
     },
     {
       name: 'GPU Utilization',
-      format: row => row.gpuUtilization != undefined ? row.gpuUtilization.toFixed(1) + "%" : "N/A",
+      format: row => row.gpuUtilization != undefined ? row.gpuUtilization.toFixed(1) + "%" : "No GPUs",
       selector: row => row.gpuUtilization,
       sortable: true,
 
