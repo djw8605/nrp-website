@@ -53,7 +53,7 @@ export default function InsideMarker(props) {
     under = (
       <div className="">To be installed</div>
     );
-  } else if (!props.site.cache) {
+  } else {
     under = (
       <>
         <FontAwesomeIcon icon={faArrowUp} className="mr-0.5 text-red-600" />
