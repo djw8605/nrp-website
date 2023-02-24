@@ -49,7 +49,7 @@ export default function Sidebar() {
     <>
       <div className="bg-white h-full">
         <div className="p-2">
-          <img src="/images/NRP_LOGO-cropped.svg" />
+          <img src="/images/NRP_LOGO-cropped.png" />
         </div>
 
         <div className="overflow-auto">
