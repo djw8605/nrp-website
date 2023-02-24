@@ -63,7 +63,7 @@
     },
     "Cincinnati": {
       "nodeRegex": "dtn-pas.cinc.net.internet2.edu",
-      "shortname" : "Cincinati",
+      "shortname" : "Cincinnati",
       "lat": 39.10265574339461,
       "lon": -84.50300540222005,
       "cache": true
