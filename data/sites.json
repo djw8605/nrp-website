@@ -22,7 +22,7 @@
       "logo": "/images/SDSClogo.png",
       "summary": "The San Diego Supercomputing Center hosts composible GPU-enabled servers, FPGAs, as well as storage and caching services.",
       "website": "https://www.sdsc.edu/",
-      "nodeRegex": ".*.ucsd.edu",
+      "nodeRegex": ".*.sdsc.optiputer.net",
       "num_cpus": "1152",
       "num_gpus": "144",
       "cache": false
