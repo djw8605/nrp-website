@@ -55,7 +55,7 @@ export default function BottomPanel() {
     {
       name: 'Transmit',
       selector: row => row.transmit,
-      format: row => humanTransferSpeed(row.receive),
+      format: row => humanTransferSpeed(row.transmit),
       sortable: true,
     },
     {
